@@ -11,6 +11,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useTheme } from "../context/ThemeContext";
+import { API_BASE_URL } from "../config";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -47,7 +48,7 @@ const StressCheck = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/stress/submit",
+        `${API_BASE_URL}/api/stress/submit`,
         { responses },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -66,7 +67,7 @@ const StressCheck = () => {
 
   const fetchHistory = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/stress/history", {
+      const res = await axios.get(`${API_BASE_URL}/api/stress/history`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setHistory(res.data);
@@ -83,7 +84,7 @@ const StressCheck = () => {
 
   const fetchMeditationStreak = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/meditation/streak", {
+      const res = await axios.get(`${API_BASE_URL}/api/meditation/streak`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMeditation({
@@ -98,12 +99,12 @@ const StressCheck = () => {
   const logMeditation = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/meditation/log",
+        `${API_BASE_URL}/api/meditation/log`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       // Update streak immediately from response
-      const streakRes = await axios.get("http://localhost:5000/api/meditation/streak", {
+      const streakRes = await axios.get(`${API_BASE_URL}/api/meditation/streak`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMeditation({
@@ -117,7 +118,7 @@ const StressCheck = () => {
 
   const fetchLatestGratitude = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/gratitude/all", {
+      const res = await axios.get(`${API_BASE_URL}/api/gratitude/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       
@@ -151,7 +152,7 @@ const StressCheck = () => {
     if (!gratitude || gratitude.trim().length === 0) return;
     try {
       await axios.post(
-        "http://localhost:5000/api/gratitude/add",
+        `${API_BASE_URL}/api/gratitude/add`,
         { text: gratitude },
         { headers: { Authorization: `Bearer ${token}` } }
       );

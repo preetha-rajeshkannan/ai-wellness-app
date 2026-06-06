@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useTheme } from "../context/ThemeContext";
+import { API_BASE_URL } from "../config";
 
 const starterPrompts = [
   "I feel overwhelmed today",
@@ -38,7 +39,7 @@ const Chatbot = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/ai/chat",
+        `${API_BASE_URL}/api/ai/chat`,
         { message: payload },
         { headers: { Authorization: `Bearer ${token}` } }
       );

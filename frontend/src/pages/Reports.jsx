@@ -12,6 +12,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import { API_BASE_URL } from "../config";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
@@ -25,7 +26,7 @@ const Reports = () => {
   // Fetch mood logs
   const fetchMoods = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/mood/all", {
+      const res = await axios.get(`${API_BASE_URL}/api/mood/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMoodData(res.data);
@@ -37,7 +38,7 @@ const Reports = () => {
   // Fetch journal entries
   const fetchJournal = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/journal/all", {
+      const res = await axios.get(`${API_BASE_URL}/api/journal/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJournalData(res.data);

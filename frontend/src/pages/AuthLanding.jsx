@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import { API_BASE_URL } from "../config";
 
 const AuthLanding = () => {
   const [mode, setMode] = useState("login");
@@ -17,14 +18,14 @@ const AuthLanding = () => {
     e.preventDefault();
     try {
       if (isRegister) {
-        await axios.post("http://localhost:5000/api/auth/register", {
+        await axios.post(`${API_BASE_URL}/api/auth/register`, {
           name,
           email,
           password,
         });
         setMode("login");
       } else {
-        const res = await axios.post("http://localhost:5000/api/auth/login", {
+        const res = await axios.post(`${API_BASE_URL}/api/auth/login`, {
           email,
           password,
         });

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useTheme } from "../context/ThemeContext";
+import { API_BASE_URL } from "../config";
 
 const sentimentClass = (sentiment) => {
   if (sentiment === "POSITIVE") return "text-emerald-600";
@@ -17,7 +18,7 @@ const Journal = () => {
 
   const fetchEntries = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/journal/all", {
+      const res = await axios.get(`${API_BASE_URL}/api/journal/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEntries(res.data);
@@ -28,7 +29,7 @@ const Journal = () => {
 
   const deleteEntry = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/journal/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/journal/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchEntries();
@@ -42,7 +43,7 @@ const Journal = () => {
     try {
       setSaving(true);
       await axios.post(
-        "http://localhost:5000/api/journal/add",
+        `${API_BASE_URL}/api/journal/add`,
         { text },
         { headers: { Authorization: `Bearer ${token}` } }
       );
